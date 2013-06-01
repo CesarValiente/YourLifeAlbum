@@ -8,4 +8,8 @@
     <string name="yla_password_label">Password</string>
     <string name="yla_login_label_btn">Login</string>
 
+    <!-- Action bar options -->
+    <string name="menu_settings">Settings</string>
+    <string name="menu_refresh">Refresh</string>
+
 </resources>

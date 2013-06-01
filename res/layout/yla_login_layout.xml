@@ -27,6 +27,7 @@
     <Button
         android:id="@+id/yla_login_btn"
         style="@style/yla_common_button"
+        android:onClick="onLoginClick"
         android:text="@string/yla_login_label_btn" />
 
 </LinearLayout>
