@@ -2,4 +2,10 @@
 
     <string name="app_name">YourLifeAlbum</string>
 
+    <!-- Login labels -->
+    <string name="yla_login_eyeem">Login in EyeEm</string>
+    <string name="yla_username_label">Username</string>
+    <string name="yla_password_label">Password</string>
+    <string name="yla_login_label_btn">Login</string>
+
 </resources>
