@@ -1,10 +1,8 @@
 package com.cesar.yourlifealbum.ui.fragments;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -24,17 +22,21 @@ import com.cesar.yourlifealbum.application.ClassWiring;
 import com.cesar.yourlifealbum.components.adapters.CalendarAdapter;
 import com.cesar.yourlifealbum.components.tasks.EyeemTasks.GetAllPhotosListener;
 import com.cesar.yourlifealbum.data.db.models.Photo;
-import com.cesar.yourlifealbum.utils.Log;
 
 public class CalendarFragment extends Fragment implements GetAllPhotosListener {
 
-    public Calendar mMonth;
-    public CalendarAdapter mCalendarAdapter;
-    public Handler mHandler;
-    public ArrayList<String> mItems; // container to store some random calendar
-                                     // items
-
     private final String CLASS_NAME = CalendarFragment.class.getSimpleName();
+
+    private Calendar mMonth;
+    private CalendarAdapter mCalendarAdapter;
+    private Handler mHandler;
+    private List<Photo> mPhotoList;
+
+    // Widgets
+    private GridView mGridView;
+    private TextView mTitleMonth;
+    private TextView mPreviousMonth;
+    private TextView mNextMonth;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -54,23 +56,17 @@ public class CalendarFragment extends Fragment implements GetAllPhotosListener {
         mMonth = Calendar.getInstance();
         setupCalendar();
 
-        mItems = new ArrayList<String>();
         mCalendarAdapter = new CalendarAdapter(getActivity(), mMonth);
 
-        GridView gridview = (GridView) view
-                .findViewById(R.id.calendar_gridview);
-        gridview.setAdapter(mCalendarAdapter);
+        mGridView = (GridView) view.findViewById(R.id.calendar_gridview);
+        mGridView.setAdapter(mCalendarAdapter);
 
-        mHandler = new Handler();
-        mHandler.post(calendarUpdater);
+        mTitleMonth = (TextView) view.findViewById(R.id.calendar_title);
+        mTitleMonth.setText(android.text.format.DateFormat.format("MMMM yyyy",
+                mMonth));
 
-        TextView title = (TextView) view.findViewById(R.id.calendar_title);
-        title.setText(android.text.format.DateFormat
-                .format("MMMM yyyy", mMonth));
-
-        TextView previous = (TextView) view
-                .findViewById(R.id.calendar_previous);
-        previous.setOnClickListener(new OnClickListener() {
+        mPreviousMonth = (TextView) view.findViewById(R.id.calendar_previous);
+        mPreviousMonth.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -81,12 +77,12 @@ public class CalendarFragment extends Fragment implements GetAllPhotosListener {
                 } else {
                     mMonth.set(Calendar.MONTH, mMonth.get(Calendar.MONTH) - 1);
                 }
-                refreshCalendar(view);
+                refreshCalendar();
             }
         });
 
-        TextView next = (TextView) view.findViewById(R.id.calendar_next);
-        next.setOnClickListener(new OnClickListener() {
+        mNextMonth = (TextView) view.findViewById(R.id.calendar_next);
+        mNextMonth.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -97,12 +93,12 @@ public class CalendarFragment extends Fragment implements GetAllPhotosListener {
                 } else {
                     mMonth.set(Calendar.MONTH, mMonth.get(Calendar.MONTH) + 1);
                 }
-                refreshCalendar(view);
+                refreshCalendar();
 
             }
         });
 
-        gridview.setOnItemClickListener(new OnItemClickListener() {
+        mGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> parent, final View v,
                     final int position, final long id) {
@@ -145,45 +141,22 @@ public class CalendarFragment extends Fragment implements GetAllPhotosListener {
                 Integer.parseInt(dateArr[2]));
     }
 
-    private void refreshCalendar(final View view) {
-        TextView title = (TextView) view.findViewById(R.id.calendar_title);
+    private void refreshCalendar() {
 
         mCalendarAdapter.refreshDays();
+        mCalendarAdapter.setItems(mPhotoList);
         mCalendarAdapter.notifyDataSetChanged();
-        mHandler.post(calendarUpdater); // generate some random calendar items
 
-        title.setText(android.text.format.DateFormat
-                .format("MMMM yyyy", mMonth));
+        mTitleMonth.setText(android.text.format.DateFormat.format("MMMM yyyy",
+                mMonth));
     }
-
-    private Runnable calendarUpdater = new Runnable() {
-
-        @Override
-        public void run() {
-            mItems.clear();
-            // format random values. You can implement a dedicated class to
-            // provide real values
-            for (int i = 0; i < 31; i++) {
-                Random r = new Random();
-
-                if (r.nextInt(10) > 6) {
-                    mItems.add(Integer.toString(i));
-                }
-            }
-
-            mCalendarAdapter.setItems(mItems);
-            mCalendarAdapter.notifyDataSetChanged();
-        }
-    };
 
     @Override
     public void getAllPhotosCallback(final List<Photo> photoList) {
 
         if (photoList != null) {
-            for (Photo item : photoList) {
-                Log.d(CLASS_NAME, item.toString());
-            }
+            mPhotoList = photoList;
+            refreshCalendar();
         }
-
     }
 }
