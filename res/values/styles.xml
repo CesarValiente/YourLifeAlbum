@@ -18,7 +18,7 @@
     </style>
 
     <!-- Login styles -->
-    <style name="yla_login_text_style">
+    <style name="login_text_style">
         <item name="android:layout_width">200dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">5dp</item>
@@ -27,7 +27,7 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="yla_common_button">
+    <style name="common_button">
         <item name="android:layout_width">200dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>

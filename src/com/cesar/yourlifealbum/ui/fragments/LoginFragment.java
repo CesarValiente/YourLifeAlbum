@@ -36,14 +36,11 @@ public class LoginFragment extends Fragment implements OnClickListener {
     public View onCreateView(final LayoutInflater inflater,
             final ViewGroup container, final Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.yla_login_layout, container,
-                false);
+        View view = inflater.inflate(R.layout.login_layout, container, false);
 
-        mUserNameEditText = (EditText) view
-                .findViewById(R.id.yla_login_username);
-        mPasswordEditText = (EditText) view
-                .findViewById(R.id.yla_login_password);
-        mLoginBtn = (Button) view.findViewById(R.id.yla_login_btn);
+        mUserNameEditText = (EditText) view.findViewById(R.id.login_username);
+        mPasswordEditText = (EditText) view.findViewById(R.id.login_password);
+        mLoginBtn = (Button) view.findViewById(R.id.login_btn);
 
         mLoginBtn.setOnClickListener(this);
 

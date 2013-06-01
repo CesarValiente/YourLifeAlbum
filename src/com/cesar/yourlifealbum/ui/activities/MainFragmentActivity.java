@@ -3,6 +3,9 @@ package com.cesar.yourlifealbum.ui.activities;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
 
 import com.cesar.yourlifealbum.R;
@@ -16,11 +19,33 @@ public class MainFragmentActivity extends Activity {
 
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
-        setContentView(R.layout.yla_main_layout);
+        setContentView(R.layout.main_layout);
 
         FragmentTransaction transaction = getFragmentManager()
                 .beginTransaction();
-        transaction.add(R.id.yla_main_activity_layout, new CalendarFragment());
+        transaction.add(R.id.main_layout, new CalendarFragment());
         transaction.commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_settings:
+
+                return true;
+            case R.id.menu_refresh:
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
