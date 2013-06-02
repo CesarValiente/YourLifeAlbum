@@ -146,6 +146,9 @@ public class Photo extends DataObject implements Parcelable {
         dest.writeInt(width);
         dest.writeInt(height);
         dest.writeString(updated);
+        dest.writeInt(year);
+        dest.writeInt(month);
+        dest.writeInt(day);
     }
 
     /**
@@ -163,6 +166,9 @@ public class Photo extends DataObject implements Parcelable {
             photo.setWidth(source.readInt());
             photo.setHeight(source.readInt());
             photo.setUpdated(source.readString());
+            photo.setYear(source.readInt());
+            photo.setMonth(source.readInt());
+            photo.setDay(source.readInt());
 
             return photo;
         }

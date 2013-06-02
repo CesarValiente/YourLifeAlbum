@@ -1,8 +1,7 @@
 package com.cesar.yourlifealbum.ui.activities;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,7 +10,7 @@ import android.view.Window;
 import com.cesar.yourlifealbum.R;
 import com.cesar.yourlifealbum.ui.fragments.CalendarFragment;
 
-public class MainFragmentActivity extends Activity {
+public class MainFragmentActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(final Bundle arg0) {
@@ -21,7 +20,7 @@ public class MainFragmentActivity extends Activity {
 
         setContentView(R.layout.main_layout);
 
-        FragmentTransaction transaction = getFragmentManager()
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction();
         transaction.add(R.id.main_layout, new CalendarFragment());
         transaction.commit();

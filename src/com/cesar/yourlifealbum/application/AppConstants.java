@@ -58,8 +58,14 @@ public class AppConstants {
         public static final String TEXT_ENCODING = "UTF-8";
     }
 
+    /**
+     * 
+     * @author cesarvaliente
+     * 
+     */
     public class Messages {
         public static final String GET_ALL_PHOTOS_MSG = "getAllPhotos";
+        public static final String DAY_PHOTOS = "dayPhotos";
     }
 
     /**

@@ -40,14 +40,16 @@ public class CalendarAdapter extends BaseAdapter {
     private Calendar mMonth;
     private Calendar mSelectedDate;
     private List<Photo> mPhotoList;
-    public String[] mDays;
-    private List<Photo> mPhotoSetDay;
+    private String[] mDays;
+    private ClickOnCalendar mListener;
 
-    public CalendarAdapter(final Context c, final Calendar monthCalendar) {
+    public CalendarAdapter(final Context c, final Calendar monthCalendar,
+            final ClickOnCalendar listener) {
 
         mMonth = monthCalendar;
-        mSelectedDate = (Calendar) monthCalendar.clone();
+        mListener = listener;
         mContext = c;
+        mSelectedDate = (Calendar) monthCalendar.clone();
         mMonth.set(Calendar.DAY_OF_MONTH, 1);
         refreshDays();
     }
@@ -140,17 +142,20 @@ public class CalendarAdapter extends BaseAdapter {
         }
 
         // show icon if date is not empty and it exists in the items array
-        if (date.length() > 0 && mPhotoList != null
-                && isPhotoDay(Integer.parseInt(date))) {
-            viewHolder.dayImage.setVisibility(View.VISIBLE);
-            viewHolder.dateLayout.setOnClickListener(new OnClickListener() {
 
-                @Override
-                public void onClick(final View v) {
-                    // TODO Auto-generated method stub
-
-                }
-            });
+        if (date.length() > 0 && mPhotoList != null) {
+            final List<Photo> photoDaySet = isPhotoDay(Integer.parseInt(date));
+            if (photoDaySet != null) {
+                viewHolder.dayImage.setVisibility(View.VISIBLE);
+                viewHolder.dateLayout.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        mListener.viewPhotos(photoDaySet);
+                    }
+                });
+            } else {
+                viewHolder.dayImage.setVisibility(View.INVISIBLE);
+            }
         } else {
             viewHolder.dayImage.setVisibility(View.INVISIBLE);
         }
@@ -191,18 +196,24 @@ public class CalendarAdapter extends BaseAdapter {
         }
     }
 
-    private boolean isPhotoDay(final int day) {
+    private List<Photo> isPhotoDay(final int day) {
+
+        List<Photo> photoSetDay = null;
 
         if (mPhotoList != null && mPhotoList.size() > 0) {
             for (Photo item : mPhotoList) {
                 if (item.getDay() == day) {
-                    if (mPhotoSetDay == null) {
-                        mPhotoSetDay = new ArrayList<Photo>();
+                    if (photoSetDay == null) {
+                        photoSetDay = new ArrayList<Photo>();
                     }
-                    mPhotoSetDay.add(item);
+                    photoSetDay.add(item);
                 }
             }
         }
-        return mPhotoSetDay != null ? true : false;
+        return photoSetDay;
+    }
+
+    public interface ClickOnCalendar {
+        public void viewPhotos(List<Photo> photoList);
     }
 }
