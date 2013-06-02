@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,12 +19,13 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.cesar.yourlifealbum.R;
+import com.cesar.yourlifealbum.application.AppConstants;
 import com.cesar.yourlifealbum.application.ClassWiring;
 import com.cesar.yourlifealbum.components.adapters.CalendarAdapter;
 import com.cesar.yourlifealbum.components.adapters.CalendarAdapter.ClickOnCalendar;
 import com.cesar.yourlifealbum.components.tasks.EyeemTasks.GetAllPhotosListener;
 import com.cesar.yourlifealbum.data.db.models.Photo;
-import com.cesar.yourlifealbum.ui.activities.MainFragmentActivity;
+import com.cesar.yourlifealbum.ui.activities.ViewPhotosFragmentActivity;
 import com.cesar.yourlifealbum.utils.DateUtils;
 import com.cesar.yourlifealbum.utils.Log;
 
@@ -189,21 +189,31 @@ public class CalendarFragment extends Fragment implements GetAllPhotosListener,
     }
 
     @Override
-    public void viewPhotos(final List<Photo> photoList) {
+    public void viewPhotos(final ArrayList<Photo> photoList) {
 
-        // Create new fragment and transaction
-        ViewPhotosFragment viewPhotosFragment = new ViewPhotosFragment(
+        // // Create new fragment and transaction
+        // ViewPhotosFragment viewPhotosFragment = new ViewPhotosFragment(
+        // photoList);
+        // FragmentTransaction transaction = ((MainFragmentActivity)
+        // getActivity())
+        // .getSupportFragmentManager().beginTransaction();
+        //
+        // // Replace whatever is in the fragment_container view with this
+        // // fragment,
+        // // and add the transaction to the back stack
+        // transaction.replace(R.id.main_layout, viewPhotosFragment);
+        //
+        // // Commit the transaction
+        // transaction.commit();
+
+        Intent intent = new Intent(getActivity(),
+                ViewPhotosFragmentActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(AppConstants.Messages.DAY_PHOTOS,
                 photoList);
-        FragmentTransaction transaction = ((MainFragmentActivity) getActivity())
-                .getSupportFragmentManager().beginTransaction();
+        intent.putExtra(AppConstants.Messages.BUNDLE, bundle);
 
-        // Replace whatever is in the fragment_container view with this
-        // fragment,
-        // and add the transaction to the back stack
-        transaction.replace(R.id.main_layout, viewPhotosFragment);
-
-        // Commit the transaction
-        transaction.commit();
+        startActivity(intent);
 
     }
 }

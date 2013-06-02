@@ -66,6 +66,7 @@ public class AppConstants {
     public class Messages {
         public static final String GET_ALL_PHOTOS_MSG = "getAllPhotos";
         public static final String DAY_PHOTOS = "dayPhotos";
+        public static final String BUNDLE = "bundle";
     }
 
     /**

@@ -144,7 +144,8 @@ public class CalendarAdapter extends BaseAdapter {
         // show icon if date is not empty and it exists in the items array
 
         if (date.length() > 0 && mPhotoList != null) {
-            final List<Photo> photoDaySet = isPhotoDay(Integer.parseInt(date));
+            final ArrayList<Photo> photoDaySet = isPhotoDay(Integer
+                    .parseInt(date));
             if (photoDaySet != null) {
                 viewHolder.dayImage.setVisibility(View.VISIBLE);
                 viewHolder.dateLayout.setOnClickListener(new OnClickListener() {
@@ -196,9 +197,9 @@ public class CalendarAdapter extends BaseAdapter {
         }
     }
 
-    private List<Photo> isPhotoDay(final int day) {
+    private ArrayList<Photo> isPhotoDay(final int day) {
 
-        List<Photo> photoSetDay = null;
+        ArrayList<Photo> photoSetDay = null;
 
         if (mPhotoList != null && mPhotoList.size() > 0) {
             for (Photo item : mPhotoList) {
@@ -214,6 +215,6 @@ public class CalendarAdapter extends BaseAdapter {
     }
 
     public interface ClickOnCalendar {
-        public void viewPhotos(List<Photo> photoList);
+        public void viewPhotos(ArrayList<Photo> photoList);
     }
 }

@@ -140,6 +140,7 @@ public class Photo extends DataObject implements Parcelable {
 
     @Override
     public void writeToParcel(final Parcel dest, final int flags) {
+        dest.writeString(id);
         dest.writeString(thumbUrl);
         dest.writeString(photoUrl);
         dest.writeString(webUrl);
