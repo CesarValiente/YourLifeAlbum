@@ -16,6 +16,7 @@
 
 package com.cesar.yourlifealbum.components.adapters;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class CalendarAdapter extends BaseAdapter {
     private Calendar mSelectedDate;
     private List<Photo> mPhotoList;
     public String[] mDays;
+    private List<Photo> mPhotoSetDay;
 
     public CalendarAdapter(final Context c, final Calendar monthCalendar) {
 
@@ -140,6 +142,14 @@ public class CalendarAdapter extends BaseAdapter {
         if (date.length() > 0 && mPhotoList != null
                 && isPhotoDay(Integer.parseInt(date))) {
             viewHolder.dayImage.setVisibility(View.VISIBLE);
+            viewHolder.dateLayout.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(final View v) {
+                    // TODO Auto-generated method stub
+
+                }
+            });
         } else {
             viewHolder.dayImage.setVisibility(View.INVISIBLE);
         }
@@ -185,11 +195,13 @@ public class CalendarAdapter extends BaseAdapter {
         if (mPhotoList != null && mPhotoList.size() > 0) {
             for (Photo item : mPhotoList) {
                 if (item.getDay() == day) {
-                    return true;
+                    if (mPhotoSetDay == null) {
+                        mPhotoSetDay = new ArrayList<Photo>();
+                    }
+                    mPhotoSetDay.add(item);
                 }
             }
         }
-        return false;
-
+        return mPhotoSetDay != null ? true : false;
     }
 }
