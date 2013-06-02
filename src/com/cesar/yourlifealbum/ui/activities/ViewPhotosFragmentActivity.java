@@ -11,12 +11,12 @@ import com.cesar.yourlifealbum.R;
 import com.cesar.yourlifealbum.application.AppConstants;
 import com.cesar.yourlifealbum.components.adapters.ViewPagerAdapter;
 import com.cesar.yourlifealbum.data.db.models.Photo;
-import com.cesar.yourlifealbum.ui.fragments.ViewPhotosFragment;
 import com.viewpagerindicator.CirclePageIndicator;
 
 public class ViewPhotosFragmentActivity extends FragmentActivity {
 
-    private final String CLASS_NAME = ViewPhotosFragment.class.getSimpleName();
+    private final String CLASS_NAME = ViewPhotosFragmentActivity.class
+            .getSimpleName();
 
     private ViewPager mViewPager;
     private CirclePageIndicator mCircleIndicator;
