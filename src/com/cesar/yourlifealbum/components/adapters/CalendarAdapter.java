@@ -60,8 +60,8 @@ public class CalendarAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(final int position) {
-        if (mPhotoList != null && mPhotoList.size() > 0) {
-            return mPhotoList.get(position);
+        if (mDays != null && mDays.length > position) {
+            return mDays[position];
         } else {
             return null;
         }
@@ -138,7 +138,7 @@ public class CalendarAdapter extends BaseAdapter {
 
         // show icon if date is not empty and it exists in the items array
         if (date.length() > 0 && mPhotoList != null
-                && mPhotoList.contains(date)) {
+                && isPhotoDay(Integer.parseInt(date))) {
             viewHolder.dayImage.setVisibility(View.VISIBLE);
         } else {
             viewHolder.dayImage.setVisibility(View.INVISIBLE);
@@ -148,10 +148,6 @@ public class CalendarAdapter extends BaseAdapter {
 
     public void refreshDays() {
 
-        // clear items
-        if (mPhotoList != null) {
-            mPhotoList.clear();
-        }
         int lastDay = mMonth.getActualMaximum(Calendar.DAY_OF_MONTH);
         int firstDay = mMonth.get(Calendar.DAY_OF_WEEK);
 
@@ -182,5 +178,18 @@ public class CalendarAdapter extends BaseAdapter {
             mDays[i] = "" + dayNumber;
             dayNumber++;
         }
+    }
+
+    private boolean isPhotoDay(final int day) {
+
+        if (mPhotoList != null && mPhotoList.size() > 0) {
+            for (Photo item : mPhotoList) {
+                if (item.getDay() == day) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
     }
 }

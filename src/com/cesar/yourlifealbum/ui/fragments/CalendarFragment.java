@@ -1,5 +1,6 @@
 package com.cesar.yourlifealbum.ui.fragments;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,8 @@ import com.cesar.yourlifealbum.application.ClassWiring;
 import com.cesar.yourlifealbum.components.adapters.CalendarAdapter;
 import com.cesar.yourlifealbum.components.tasks.EyeemTasks.GetAllPhotosListener;
 import com.cesar.yourlifealbum.data.db.models.Photo;
+import com.cesar.yourlifealbum.utils.DateUtils;
+import com.cesar.yourlifealbum.utils.Log;
 
 public class CalendarFragment extends Fragment implements GetAllPhotosListener {
 
@@ -118,10 +121,8 @@ public class CalendarFragment extends Fragment implements GetAllPhotosListener {
                     // setResult(RESULT_OK, intent);
                     // finish();
                 }
-
             }
         });
-
         return view;
     }
 
@@ -144,7 +145,7 @@ public class CalendarFragment extends Fragment implements GetAllPhotosListener {
     private void refreshCalendar() {
 
         mCalendarAdapter.refreshDays();
-        mCalendarAdapter.setItems(mPhotoList);
+        mCalendarAdapter.setItems(getPhotosOfMonth());
         mCalendarAdapter.notifyDataSetChanged();
 
         mTitleMonth.setText(android.text.format.DateFormat.format("MMMM yyyy",
@@ -158,5 +159,25 @@ public class CalendarFragment extends Fragment implements GetAllPhotosListener {
             mPhotoList = photoList;
             refreshCalendar();
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    public List<Photo> getPhotosOfMonth() {
+
+        List<Photo> photosOfTheMonth = new ArrayList<Photo>();
+        if (mPhotoList != null) {
+            for (Photo item : mPhotoList) {
+                Date date = DateUtils.dateFromRFC3339String(item.getUpdated());
+                if (date.getMonth() == mMonth.getTime().getMonth()
+                        && date.getYear() == mMonth.getTime().getYear()) {
+                    Log.d(CLASS_NAME, "found one!!");
+                    item.setDay(date.getDay());
+                    item.setMonth(date.getMonth());
+                    item.setDay(date.getDay());
+                    photosOfTheMonth.add(item);
+                }
+            }
+        }
+        return photosOfTheMonth;
     }
 }

@@ -34,6 +34,10 @@ public class Photo extends DataObject implements Parcelable {
     @SerializedName(API_UPDATED)
     private String updated;
 
+    private int year;
+    private int month;
+    private int day;
+
     public Photo() {
         super();
     }
@@ -90,6 +94,30 @@ public class Photo extends DataObject implements Parcelable {
 
     public void setUpdated(final String updated) {
         this.updated = updated;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(final int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(final int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(final int day) {
+        this.day = day;
     }
 
     @Override
