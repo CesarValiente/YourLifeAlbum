@@ -20,10 +20,10 @@ import android.widget.TextView;
 
 import com.cesar.yourlifealbum.R;
 import com.cesar.yourlifealbum.application.AppConstants;
-import com.cesar.yourlifealbum.application.ClassWiring;
 import com.cesar.yourlifealbum.components.adapters.CalendarAdapter;
 import com.cesar.yourlifealbum.components.adapters.CalendarAdapter.ClickOnCalendar;
-import com.cesar.yourlifealbum.components.tasks.EyeemTasks.GetAllPhotosListener;
+import com.cesar.yourlifealbum.components.tasks.GetAllPhotosTask;
+import com.cesar.yourlifealbum.components.tasks.GetAllPhotosTask.GetAllPhotosListener;
 import com.cesar.yourlifealbum.data.db.models.Photo;
 import com.cesar.yourlifealbum.ui.activities.ViewPhotosFragmentActivity;
 import com.cesar.yourlifealbum.utils.DateUtils;
@@ -49,8 +49,7 @@ public class CalendarFragment extends Fragment implements GetAllPhotosListener,
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ClassWiring.getEyeemTasksManager().new GetAllPhotos(getActivity(), this)
-                .execute();
+        new GetAllPhotosTask(getActivity(), this).execute();
     }
 
     @Override

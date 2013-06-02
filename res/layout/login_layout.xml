@@ -7,27 +7,10 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <TextView
-        style="@style/login_text_style"
-        android:layout_width="wrap_content"
-        android:text="@string/login_eyeem"
-        android:textStyle="bold|italic" />
-
-    <EditText
-        android:id="@+id/login_username"
-        style="@style/login_text_style"
-        android:hint="@string/username_label" />
-
-    <EditText
-        android:id="@+id/login_password"
-        style="@style/login_text_style"
-        android:hint="@string/password_label"
-        android:inputType="textPassword" />
-
     <Button
         android:id="@+id/login_btn"
         style="@style/common_button"
         android:onClick="onLoginClick"
-        android:text="@string/login_label_btn" />
+        android:text="@string/login_eyeem_btn" />
 
 </LinearLayout>

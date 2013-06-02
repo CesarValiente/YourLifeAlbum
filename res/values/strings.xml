@@ -3,10 +3,7 @@
     <string name="app_name">YourLifeAlbum</string>
 
     <!-- Login labels -->
-    <string name="login_eyeem">Login in EyeEm</string>
-    <string name="username_label">Username</string>
-    <string name="password_label">Password</string>
-    <string name="login_label_btn">Login</string>
+    <string name="login_eyeem_btn">Login on EyeEm</string>
 
     <!-- Action bar options -->
     <string name="menu_settings">Settings</string>
