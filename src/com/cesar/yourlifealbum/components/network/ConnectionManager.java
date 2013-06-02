@@ -23,18 +23,12 @@ package com.cesar.yourlifealbum.components.network;
 
 import java.io.InputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.graphics.Bitmap;
-import android.util.Pair;
 
 /**
  * Class to handle connections to the server
